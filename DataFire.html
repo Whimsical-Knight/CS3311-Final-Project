@@ -1,3 +1,4 @@
+```html
 <!doctype html>
 <html lang="en">
 <head>
@@ -7,18 +8,21 @@
   <title>Data Fire</title>
   <link rel="icon" type="image/png" href="image/favicon.png">
 
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <style>
 
-    /*top nav */
+    /* Top nav */
     .top-nav {
-    margin-top: 50px;
-    display: flex;
-    gap: 20px;
+      margin-top: 50px;
+      display: flex;
+      gap: 20px;
     }
 
     /* Sidebar */
     .sidebar {
-      height: 100%;
+      height: 100vh;
       width: 0;
       position: fixed;
       top: 0;
@@ -76,14 +80,61 @@
     .openbtn:hover {
       background-color: #444;
     }
+
+    /* Graph area */
+    .graph-container {
+      width: 80%;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+
+      background-color: #f5f5f5;
+      border: 2px solid #222;
+      border-radius: 10px;
+    }
+
+    .graph-container h3 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    /* Input area */
+    .data-input {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .data-input input {
+      padding: 8px;
+      margin: 5px;
+    }
+
+    .data-input button {
+      padding: 8px 15px;
+      cursor: pointer;
+    }
+
+    .chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    }
+
+    /* Canvas */
+    #myChart {
+      width: 100%;
+      height: 100%;
+    }
+
   </style>
 </head>
 
 <body>
-<nav class="top-nav">
-  <a href="index.html">Home</a>
-  <a href="Calculator.html" target="_blank">Calculator</a>
-</nav>
+
+  <nav class="top-nav">
+    <a href="index.html">Home</a>
+    <a href="Calculator.html" target="_blank">Calculator</a>
+  </nav>
 
   <!-- Sidebar -->
   <div id="Sidebar" class="sidebar">
@@ -97,13 +148,53 @@
 
   <!-- Main content -->
   <div id="main">
-    <button class="openbtn" onclick="openNav()">☰ Menu </button>
+
+    <button class="openbtn" onclick="openNav()">☰ Menu</button>
 
     <h2>Main Page</h2>
     <p>Content...</p>
+
+    <!-- Graph -->
+    <div class="graph-container">
+
+      <h3>Data Graph</h3>
+
+      <div class="data-input">
+
+        <label for="xData">X Values:</label>
+        <input
+          type="text"
+          id="xData"
+          value="1,2,3,4,5"
+        >
+
+        <br>
+
+        <label for="yData">Y Values:</label>
+        <input
+          type="text"
+          id="yData"
+          value="2,4,6,8,10"
+        >
+
+        <br>
+
+        <button onclick="generateGraph()">
+          Generate Graph
+        </button>
+
+      <div class="chart-wrapper">
+        <canvas id="myChart"></canvas>
+      </div>
+
+    </div>
+
   </div>
 
   <script>
+
+    let graph;
+
     function openNav() {
       document.getElementById("Sidebar").style.width = "250px";
       document.getElementById("main").style.marginLeft = "250px";
@@ -113,7 +204,85 @@
       document.getElementById("Sidebar").style.width = "0";
       document.getElementById("main").style.marginLeft = "0";
     }
+
+    function generateGraph() {
+
+      // Get the data from the input boxes
+      let xInput = document.getElementById("xData").value;
+      let yInput = document.getElementById("yData").value;
+
+      // Convert the comma-separated text into arrays
+      let xValues = xInput.split(",").map(Number);
+      let yValues = yInput.split(",").map(Number);
+
+      // Make sure both arrays have the same number of values
+      if (xValues.length !== yValues.length) {
+        alert("X and Y must contain the same number of values.");
+        return;
+      }
+
+      // Delete the old graph
+      if (graph) {
+        graph.destroy();
+      }
+
+      // Get the canvas
+      let canvas = document.getElementById("myChart");
+
+      // Create the graph
+      graph = new Chart(canvas, {
+
+        type: "line",
+
+        data: {
+          labels: xValues,
+
+          datasets: [{
+            label: "Data",
+            data: yValues,
+
+            borderWidth: 2,
+
+            fill: false,
+
+            tension: 0.2
+          }]
+        },
+
+        options: {
+
+          responsive: true,
+
+          maintainAspectRatio: false,
+
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: "X"
+              }
+            },
+
+            y: {
+              title: {
+                display: true,
+                text: "Y"
+              }
+            }
+          }
+
+        }
+
+      });
+
+    }
+
+    // Generate the initial graph
+    generateGraph();
+
   </script>
 
 </body>
 </html>
+```
+
