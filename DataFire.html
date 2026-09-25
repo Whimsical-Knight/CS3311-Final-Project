@@ -1,26 +1,119 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Course Schedule Overview</title>
-    <meta name="author" content="Anna's Table" />
-    <link rel="icon" type="image/png" href="image/favicon.png">
-  </head>
-<h1>DataFire</h1>
-<a href="index.html">Home</a> |
-<a href="Calculator.html" target="_blank">Calculator</a>
-<div id="Sidebar" class="sidebar">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Instructions</a>
-  <a href="#">Saved Graphs</a>
-  <a href="#">My Data Sets</a>
-  <a href="#">Profile</a>
-</div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<div id="main">
-  <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>
-  <h2>Collapsed Sidebar</h2>
-  <p>Content...</p>
-</div>
+  <title>Data Fire</title>
+  <link rel="icon" type="image/png" href="image/favicon.png">
+
+  <style>
+
+    /*top nav */
+    .top-nav {
+    margin-top: 50px;
+    display: flex;
+    gap: 20px;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      height: 100%;
+      width: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #222;
+      overflow-x: hidden;
+      padding-top: 60px;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    /* Sidebar links */
+    .sidebar a {
+      display: block;
+      padding: 12px 24px;
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    .sidebar a:hover {
+      background-color: #444;
+    }
+
+    /* Close button */
+    .sidebar .closebtn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      font-size: 36px;
+      padding: 0;
+    }
+
+    /* Main content */
+    #main {
+      padding: 20px;
+      transition: margin-left 0.3s;
+    }
+
+    /* Open button */
+    .openbtn {
+      position: fixed;
+      top: 0;
+      left: 0;
+
+      font-size: 12px;
+      cursor: pointer;
+      background-color: #222;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 0px;
+    }
+
+    .openbtn:hover {
+      background-color: #444;
+    }
+  </style>
+</head>
+
+<body>
+<nav class="top-nav">
+  <a href="index.html">Home</a>
+  <a href="Calculator.html" target="_blank">Calculator</a>
+</nav>
+
+  <!-- Sidebar -->
+  <div id="Sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="#">About</a>
+    <a href="#">Instructions</a>
+    <a href="#">Saved Graphs</a>
+    <a href="#">My Data Sets</a>
+    <a href="#">Profile</a>
+  </div>
+
+  <!-- Main content -->
+  <div id="main">
+    <button class="openbtn" onclick="openNav()">☰ Menu </button>
+
+    <h2>Main Page</h2>
+    <p>Content...</p>
+  </div>
+
+  <script>
+    function openNav() {
+      document.getElementById("Sidebar").style.width = "250px";
+      document.getElementById("main").style.marginLeft = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("Sidebar").style.width = "0";
+      document.getElementById("main").style.marginLeft = "0";
+    }
+  </script>
+
+</body>
+</html>
