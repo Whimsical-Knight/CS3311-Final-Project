@@ -1,0 +1,462 @@
+/* Palette drawn from the logo's royal blue, violet, and gold. */
+:root {
+  color-scheme: light;
+  --paper: #f7f9ff;
+  --ink: #152044;
+  --muted: #4b5a7c;
+  --accent: #7048d7;
+  --accent-blue: #287cf0;
+  --accent-gold: #f3b83f;
+  --hero-start: #174da8;
+  --hero-end: #7048d7;
+  --hero-ink: #ffffff;
+  --border: #d5def2;
+  --control-bg: #ffffff;
+  --control-ink: #152044;
+  --sidebar-bg: #111b43;
+  --focus: #b36d00;
+  --serif: Georgia, "Times New Roman", serif;
+}
+ 
+    /* Top nav */
+    .top-nav {
+      margin-top: 50px;
+      display: flex;
+      gap: 20px;
+    }
+
+    /* =========================
+      SIDEBARS
+      ========================= */
+
+    .sidebar {
+      height: 100vh;
+      height: 100dvh;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      box-sizing: border-box;
+      background-color: var(--sidebar-bg);
+      overflow: hidden;
+      padding-top: 60px;
+      visibility: hidden;
+      transform: translateX(-100%);
+      transition: transform 0.3s, visibility 0s linear 0.3s;
+      z-index: 1000;
+    }
+
+    .sidebar.is-open {
+      visibility: visible;
+      transform: translateX(0);
+      transition: transform 0.3s;
+    }
+
+    /* LEFT SIDEBAR */
+
+    .left-sidebar {
+      left: 0;
+    }
+
+    /* RIGHT SIDEBAR */
+
+    .right-sidebar {
+      right: 0;
+      transform: translateX(100%);
+    }
+
+    /* Smooth anchor scrolling and space around scroll targets. */
+    html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    }
+
+    /* =========================
+   MENU BUTTONS
+   ========================= */
+
+    .menu-button {
+      position: fixed;
+      top: 11px;
+
+      width: 50px;
+      height: 50px;
+
+      background-color: transparent;
+      color: var(--ink);
+
+      border: none;
+      padding: 0;
+
+      font-size: 24px;
+      cursor: pointer;
+
+      z-index: 1001;
+    }
+
+    /* LEFT MENU BUTTON */
+
+    .left-menu-button {
+      left: 0;
+    }
+
+    /* RIGHT MENU BUTTON */
+
+    .right-menu-button {
+      right: 0;
+    }
+
+    /* Hover */
+
+    .menu-button:hover {
+      background-color: color-mix(in srgb, var(--accent-gold) 30%, transparent);
+    }
+
+    /* =========================
+      SIDEBAR LINKS
+      ========================= */
+
+    .sidebar a {
+      display: block;
+      padding: 12px 24px;
+
+      color: white;
+      text-decoration: none;
+      font-size: 20px;
+    }
+
+    .sidebar a:hover {
+      background-color: var(--accent);
+    }
+
+    .sidebar {
+      overflow-x: hidden;
+    }
+
+    /* Graph area */
+    .graph-container {
+      width: min(100%, 900px);
+      max-width: 900px;
+      box-sizing: border-box;
+      margin: 30px auto;
+      padding: 20px;
+
+      background-color: var(--paper);
+      color: var(--ink);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--accent-gold);
+      border-radius: 5px;
+    }
+
+    .graph-container h3 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    /* Input area */
+    .data-input {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .data-input input {
+      padding: 8px;
+      margin: 5px;
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+      background: var(--control-bg);
+      color: var(--control-ink);
+      font: inherit;
+    }
+
+    .data-input button {
+      padding: 8px 15px;
+      border: 0;
+      border-radius: 0.25rem;
+      background: var(--accent);
+      color: #ffffff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .data-input button:hover {
+      background: var(--hero-start);
+    }
+
+    .graph-error {
+      min-height: 1.5em;
+      margin: 0.5rem 0 0;
+      color: #a12622;
+    }
+
+    .data-input [aria-invalid="true"] {
+      border-color: #a12622;
+    }
+
+    .chart-wrapper {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    }
+
+    /* Canvas */
+    #myChart {
+      width: 100%;
+      height: 100%;
+    }
+
+    #main {
+      padding: 20px;
+      transition: margin-left 0.3s;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 72px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--paper);
+      border-bottom: 1px solid var(--border);
+      z-index: 950;
+    }
+
+    .site-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: var(--ink);
+      font-family: 'Pirata One', fantasy;
+      font-size: 1.5rem;
+      line-height: 1;
+      text-decoration: none;
+    }
+
+    .site-brand img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+    }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.7;
+  transition: background-color 160ms ease, color 160ms ease;
+}
+
+a {
+  color: inherit;
+}
+
+/* Keep keyboard focus visible against every theme. */
+a:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  top: -5rem;
+  left: 1rem;
+  z-index: 10;
+  padding: 0.65rem 1rem;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Fluid padding and heading text keep the hero balanced at different widths. */
+.hero {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 7vw, 7rem);
+  min-height: min(43rem, 82vh);
+  padding: clamp(4rem, 9vw, 8rem) max(8vw, calc((100vw - 68rem) / 2));
+  overflow: hidden;
+  background: linear-gradient(105deg, var(--hero-start), var(--hero-end));
+  background-position: center;
+  color: var(--hero-ink);
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 43rem;
+}
+
+.eyebrow {
+  margin: 0 0 1rem;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.hero .eyebrow {
+  color: var(--hero-ink);
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  line-height: 1.12;
+}
+
+.hero h1 {
+  margin-bottom: 1.5rem;
+  font-size: clamp(2.6rem, 6vw, 5.5rem);
+  letter-spacing: -0.045em;
+}
+
+.hero-intro {
+  max-width: 36rem;
+  margin-bottom: 2rem;
+  color: var(--hero-ink);
+  font-size: clamp(1.05rem, 1.8vw, 1.25rem);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--hero-ink);
+  color: var(--hero-ink);
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.text-link:hover {
+  opacity: 0.8;
+}
+
+/* Two-column section layout; it stacks at the tablet breakpoint below. */
+.content-section {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(2rem, 7vw, 7rem);
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: clamp(4rem, 8vw, 7rem) max(5vw, 1.5rem);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-heading h2 {
+  margin-bottom: 0;
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  letter-spacing: -0.035em;
+}
+
+.about-copy {
+  max-width: 42rem;
+  color: var(--muted);
+  font-size: 1.05rem;
+}
+
+.visit-message {
+  color: var(--ink);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+}
+
+.last-visit {
+  min-height: 1.7em;
+}
+
+/* Wrap the theme selector and reset button beneath their full-width label. */
+.preferences {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 2rem;
+}
+
+.preferences label {
+  flex-basis: 100%;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.preferences select,
+.reset-button {
+  min-height: 2.75rem;
+  padding: 0.55rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 0.25rem;
+  background: var(--control-bg);
+  color: var(--control-ink);
+  font: inherit;
+}
+
+.reset-button {
+  cursor: pointer;
+}
+
+.preferences select:focus-visible,
+.reset-button:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Stack section content and tighten spacing on smaller screens. */
+@media (max-width: 850px) {
+  .hero {
+    min-height: auto;
+    padding-right: 7vw;
+    padding-left: 7vw;
+  }
+
+  .content-section {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    padding-right: 7vw;
+    padding-left: 7vw;
+  }
+}
+
+@media (max-width: 600px) {
+  html {
+    scroll-padding-top: 7.5rem;
+  }
+
+  .content-section {
+    padding: 3.75rem 1.4rem;
+  }
+}
+
+/* Turn off animated scrolling and minimize transitions when requested. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+  }
+}
