@@ -272,37 +272,6 @@
       transition: margin-left 0.3s;
     }
 
-    .site-header {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      height: 72px;
-      box-sizing: border-box;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: var(--sidebar-bg);
-      border-bottom: 3px solid var(--accent-gold);
-      z-index: 950;
-    }
-
-    .site-brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.65rem;
-      color: var(--accent-gold);
-      font-family: 'Pirata One', fantasy;
-      font-size: 1.5rem;
-      line-height: 1;
-      text-decoration: none;
-    }
-
-    .site-brand img {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-    }
-
 body {
   margin: 0;
   background: var(--paper);
@@ -356,6 +325,24 @@ a:focus-visible {
   position: relative;
   z-index: 1;
   max-width: 43rem;
+}
+
+.hero-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: clamp(2rem, 5vw, 3.5rem);
+  color: var(--accent-gold);
+  font-family: 'Pirata One', fantasy;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1;
+  text-decoration: none;
+}
+
+.hero-brand img {
+  width: clamp(5rem, 12vw, 8rem);
+  height: clamp(5rem, 12vw, 8rem);
+  object-fit: contain;
 }
 
 .eyebrow {
