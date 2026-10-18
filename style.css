@@ -82,7 +82,7 @@
       height: 50px;
 
       background-color: transparent;
-      color: var(--ink);
+      color: var(--hero-ink);
 
       border: none;
       padding: 0;
@@ -152,6 +152,68 @@
       text-align: center;
     }
 
+    .file-upload {
+      display: grid;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 0.35rem;
+      background: var(--control-bg);
+    }
+
+    .file-upload > label {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .file-upload input[type="file"],
+    .upload-columns select {
+      max-width: 100%;
+      min-height: 2.75rem;
+      padding: 0.45rem;
+      border: 1px solid var(--border);
+      border-radius: 0.25rem;
+      background: var(--control-bg);
+      color: var(--control-ink);
+      font: inherit;
+    }
+
+    .upload-help,
+    .upload-status {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .upload-columns {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .upload-columns[hidden] {
+      display: none;
+    }
+
+    .upload-columns button {
+      grid-column: 1 / -1;
+      justify-self: start;
+      padding: 0.55rem 0.9rem;
+      border: 0;
+      border-radius: 0.25rem;
+      background: var(--accent);
+      color: #ffffff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .upload-columns button:hover {
+      background: var(--hero-start);
+    }
+
     /* Input area */
     .data-input {
       margin-bottom: 20px;
@@ -219,8 +281,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: var(--paper);
-      border-bottom: 1px solid var(--border);
+      background: var(--sidebar-bg);
+      border-bottom: 3px solid var(--accent-gold);
       z-index: 950;
     }
 
@@ -228,7 +290,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.65rem;
-      color: var(--ink);
+      color: var(--accent-gold);
       font-family: 'Pirata One', fantasy;
       font-size: 1.5rem;
       line-height: 1;

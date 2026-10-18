@@ -114,4 +114,111 @@ function generateGraph() {
   });
 }
 
+function populateColumnOptions(select, headers) {
+  select.replaceChildren();
+  const labelCounts = new Map();
+
+  headers.forEach((header, index) => {
+    const baseLabel = String(header).trim() || `Column ${index + 1}`;
+    const count = (labelCounts.get(baseLabel) || 0) + 1;
+    labelCounts.set(baseLabel, count);
+    const option = document.createElement("option");
+    option.value = String(index);
+    option.textContent = count === 1 ? baseLabel : `${baseLabel} (${count})`;
+    select.append(option);
+  });
+}
+
+async function loadDataFile(file) {
+  const status = document.getElementById("upload-status");
+  const columnControls = document.getElementById("upload-columns");
+  const fileInput = document.getElementById("data-file");
+
+  columnControls.hidden = true;
+  status.textContent = "";
+  delete fileInput.dataset.rows;
+
+  if (!file) {
+    return;
+  }
+
+  if (typeof XLSX === "undefined") {
+    status.textContent = "The spreadsheet reader could not be loaded. Check your connection and try again.";
+    return;
+  }
+
+  const extension = file.name.split(".").pop().toLowerCase();
+  if (!["csv", "xlsx", "xls"].includes(extension)) {
+    status.textContent = "Choose a CSV, XLSX, or XLS file.";
+    return;
+  }
+
+  try {
+    const workbook = XLSX.read(await file.arrayBuffer(), { type: "array" });
+    if (!workbook.SheetNames.length) {
+      status.textContent = "This workbook does not contain a worksheet.";
+      return;
+    }
+
+    const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(firstSheet, {
+      header: 1,
+      defval: "",
+      blankrows: false
+    }).filter(row => row.some(value => String(value).trim() !== ""));
+
+    if (!rows.length || rows[0].length < 2) {
+      status.textContent = "The first worksheet needs at least two columns, with column names in the first row.";
+      return;
+    }
+
+    if (rows.length < 2) {
+      status.textContent = "The first worksheet has column names but no data rows.";
+      return;
+    }
+
+    const xColumn = document.getElementById("x-column");
+    const yColumn = document.getElementById("y-column");
+    populateColumnOptions(xColumn, rows[0]);
+    populateColumnOptions(yColumn, rows[0]);
+    yColumn.selectedIndex = 1;
+
+    fileInput.dataset.rows = JSON.stringify(rows.slice(1));
+    columnControls.hidden = false;
+    status.textContent = `Loaded ${rows.length - 1} data rows from the first worksheet. Select the X and Y columns.`;
+  } catch (error) {
+    console.error("Unable to read the selected data file.", error);
+    status.textContent = "Could not read this file. Check that it is a valid CSV or Excel workbook.";
+  }
+}
+
+function graphSelectedColumns() {
+  const fileInput = document.getElementById("data-file");
+  const status = document.getElementById("upload-status");
+  const xColumn = Number(document.getElementById("x-column").value);
+  const yColumn = Number(document.getElementById("y-column").value);
+
+  if (xColumn === yColumn) {
+    status.textContent = "Choose different columns for X and Y.";
+    return;
+  }
+
+  const rows = JSON.parse(fileInput.dataset.rows || "[]");
+  const xValues = rows.map(row => row[xColumn] ?? "");
+  const yValues = rows.map(row => row[yColumn] ?? "");
+
+  document.getElementById("xData").value = xValues.join(",");
+  document.getElementById("yData").value = yValues.join(",");
+  generateGraph();
+
+  if (!document.getElementById("graph-error").textContent) {
+    status.textContent = `Graph generated from ${xValues.length} uploaded rows.`;
+  }
+}
+
+document.getElementById("data-file").addEventListener("change", event => {
+  return loadDataFile(event.target.files[0]);
+});
+document.getElementById("graph-file-button").addEventListener("click", graphSelectedColumns);
+
 generateGraph();

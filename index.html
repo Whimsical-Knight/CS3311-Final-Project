@@ -16,6 +16,7 @@
 
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
   <script src="code.js" defer></script>
 
 </head>
@@ -42,6 +43,27 @@
         <div class="graph-container">
 
           <h3>Data Graph</h3>
+
+          <div class="file-upload">
+            <label for="data-file">Upload a CSV or Excel file</label>
+            <input
+              type="file"
+              id="data-file"
+              accept=".csv,.xlsx,.xls"
+              aria-describedby="upload-help upload-status"
+            >
+            <p class="upload-help" id="upload-help">
+              The first worksheet is used. Put column names in the first row, then choose the columns to graph.
+            </p>
+            <div class="upload-columns" id="upload-columns" hidden>
+              <label for="x-column">X column</label>
+              <select id="x-column"></select>
+              <label for="y-column">Y column</label>
+              <select id="y-column"></select>
+              <button type="button" id="graph-file-button">Graph selected columns</button>
+            </div>
+            <p class="upload-status" id="upload-status" role="status" aria-live="polite"></p>
+          </div>
 
           <div class="data-input">
 
