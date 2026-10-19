@@ -18,7 +18,7 @@
   --serif: Georgia, "Times New Roman", serif;
 }
  
-    /* Single left navigation sidebar */
+    /* LEFT SIDEBAR */
     .sidebar {
       height: 100vh;
       height: 100dvh;
@@ -43,14 +43,13 @@
       transition: transform 0.3s;
     }
 
-    /* Smooth anchor scrolling and space around scroll targets. */
+    /* SMOOTH ANCHOR SCROLLING AND SPACE AROUND SCROLL TARGETS */
     html {
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
     }
 
-    /* Sidebar toggle */
-
+    /* SIDEBAR TOGGLE */
     .menu-button {
       position: fixed;
       top: 11px;
@@ -72,14 +71,12 @@
       z-index: 1001;
     }
 
-    /* Hover */
-
+    /* MENU BUTTON HOVER */
     .menu-button:hover {
       background-color: color-mix(in srgb, var(--accent-gold) 30%, transparent);
     }
 
     /* SIDEBAR LINKS */
-
     .sidebar a {
       display: block;
       padding: 12px 24px;
@@ -93,7 +90,7 @@
       background-color: var(--accent);
     }
 
-    /* Graph area */
+    /* GRAPH AREA */
     .graph-container {
       width: min(100%, 900px);
       max-width: 900px;
@@ -175,7 +172,7 @@
       background: var(--hero-start);
     }
 
-    /* Input area */
+    /* DATA INPUT (OPTIONAL) */
     .data-input {
       margin-bottom: 20px;
       text-align: center;
@@ -206,6 +203,7 @@
       background: var(--hero-start);
     }
 
+    /* DISPLAY CASE FOR GRAPH ERROR */
     .graph-error {
       min-height: 1.5em;
       margin: 0.5rem 0 0;
@@ -222,7 +220,7 @@
     height: 400px;
     }
 
-    /* Canvas */
+    /* CANVAS */
     #myChart {
       width: 100%;
       height: 100%;
@@ -247,7 +245,7 @@ a {
   color: inherit;
 }
 
-/* Keep keyboard focus visible against every theme. */
+/* KEEP KEYBOARD FOCUS VISIBLE IN EVERY THEME (UNUSED CURRENTLY) */
 a:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 4px;
@@ -267,7 +265,7 @@ a:focus-visible {
   top: 1rem;
 }
 
-/* Fluid padding and heading text keep the hero balanced at different widths. */
+/*FLUID PADDING AND HEADING TEXT TO KEEP HERO BALANCED AT DIF WIDTHS*/
 .hero {
   position: relative;
   display: grid;
@@ -369,6 +367,7 @@ h3 {
   color: var(--accent);
 }
 
+/*FOOTER DESIGN*/
 .site-footer {
   padding: 1.5rem max(5vw, 1.5rem);
   background: linear-gradient(105deg, var(--hero-end), var(--sidebar-bg));
@@ -389,7 +388,7 @@ h3 {
   font-size: 0.9rem;
 }
 
-/* Two-column section layout; it stacks at the tablet breakpoint below. */
+/* TWO-COLUMN SECTION LAYOUT. STACKS AT TABLET BREAKPOINT BELOW */
 .content-section {
   display: grid;
   grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 1.2fr);
@@ -461,28 +460,6 @@ h3 {
 
 .statistics-table tbody tr:nth-child(even) {
   background: color-mix(in srgb, var(--accent-blue) 6%, var(--control-bg));
-}
-
-/* Wrap the theme selector and reset button beneath their full-width label. */
-.preferences {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.75rem;
-  margin-top: 2rem;
-}
-
-.preferences label {
-  flex-basis: 100%;
-  color: var(--ink);
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.preferences select:focus-visible,
-.reset-button:focus-visible {
-  outline: 3px solid var(--focus);
-  outline-offset: 3px;
 }
 
 /* Stack section content and tighten spacing on smaller screens. */
