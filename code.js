@@ -5,10 +5,12 @@ function toggleLeftNav() {
   const button = document.getElementById("leftMenuButton");
   const icon = document.getElementById("leftMenuIcon");
   const main = document.getElementById("main");
+  const footer = document.querySelector(".site-footer");
   const isOpen = sidebar.classList.toggle("is-open");
 
   button.setAttribute("aria-expanded", String(isOpen));
   main.style.marginLeft = isOpen ? "250px" : "0";
+  footer.style.marginLeft = isOpen ? "250px" : "0";
   icon.textContent = isOpen ? "×" : "☰";
 }
 
@@ -112,6 +114,52 @@ function generateGraph() {
       }
     }
   });
+
+  updateStatistics(points.map(point => point.x), points.map(point => point.y));
+}
+
+function quantile(sortedValues, probability) {
+  const position = (sortedValues.length - 1) * probability;
+  const lowerIndex = Math.floor(position);
+  const upperIndex = Math.ceil(position);
+  const fraction = position - lowerIndex;
+
+  return sortedValues[lowerIndex] +
+    (sortedValues[upperIndex] - sortedValues[lowerIndex]) * fraction;
+}
+
+function calculateStatistics(values) {
+  const sortedValues = [...values].sort((left, right) => left - right);
+  const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
+  const variance = values.reduce((sum, value) => sum + (value - mean) ** 2, 0) / values.length;
+
+  return {
+    mean,
+    median: quantile(sortedValues, 0.5),
+    standardDeviation: Math.sqrt(variance),
+    minimum: sortedValues[0],
+    q1: quantile(sortedValues, 0.25),
+    q3: quantile(sortedValues, 0.75),
+    maximum: sortedValues[sortedValues.length - 1]
+  };
+}
+
+function updateStatistics(xValues, yValues) {
+  const formatter = new Intl.NumberFormat(undefined, { maximumFractionDigits: 4 });
+  const statistics = {
+    x: calculateStatistics(xValues),
+    y: calculateStatistics(yValues)
+  };
+
+  Object.entries(statistics).forEach(([axis, values]) => {
+    Object.entries(values).forEach(([name, value]) => {
+      document.getElementById(`stat-${name.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}-${axis}`)
+        .textContent = formatter.format(value);
+    });
+  });
+
+  document.getElementById("visit-message").textContent =
+    `Statistics calculated from ${xValues.length} plotted data points.`;
 }
 
 function populateColumnOptions(select, headers) {

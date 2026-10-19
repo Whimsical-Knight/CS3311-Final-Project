@@ -26,7 +26,7 @@
     }
 
     /* =========================
-      SIDEBARS
+      SIDEBAR
       ========================= */
 
     .sidebar {
@@ -52,16 +52,8 @@
     }
 
     /* LEFT SIDEBAR */
-
     .left-sidebar {
       left: 0;
-    }
-
-    /* RIGHT SIDEBAR */
-
-    .right-sidebar {
-      right: 0;
-      transform: translateX(100%);
     }
 
     /* Smooth anchor scrolling and space around scroll targets. */
@@ -86,6 +78,7 @@
 
       border: none;
       padding: 0;
+      padding-left: 20px;
 
       font-size: 24px;
       cursor: pointer;
@@ -137,8 +130,8 @@
       width: min(100%, 900px);
       max-width: 900px;
       box-sizing: border-box;
-      margin: 30px auto;
-      padding: 20px;
+      margin: 0 auto;
+      padding: 1rem;
 
       background-color: var(--paper);
       color: var(--ink);
@@ -312,11 +305,11 @@ a:focus-visible {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: clamp(2rem, 7vw, 7rem);
-  min-height: min(43rem, 82vh);
-  padding: clamp(4rem, 9vw, 8rem) max(8vw, calc((100vw - 68rem) / 2));
+  gap: clamp(1rem, 3vw, 2rem);
+  min-height: auto;
+  padding: clamp(2rem, 5vw, 4rem) max(8vw, calc((100vw - 68rem) / 2));
   overflow: hidden;
-  background: linear-gradient(105deg, var(--hero-start), var(--hero-end));
+  background: linear-gradient(105deg, var(--hero-end), var(--sidebar-bg));
   background-position: center;
   color: var(--hero-ink);
 }
@@ -330,10 +323,10 @@ a:focus-visible {
 .hero-brand {
   display: inline-flex;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: clamp(2rem, 5vw, 3.5rem);
-  color: var(--accent-gold);
-  font-family: 'Pirata One', fantasy;
+  gap: 0.65rem;
+  margin-bottom: 0.75rem;
+  color: var(--control-bg);
+  font-family: var(--serif);
   font-size: clamp(2rem, 5vw, 3.5rem);
   line-height: 1;
   text-decoration: none;
@@ -375,14 +368,14 @@ h3 {
 }
 
 .hero h1 {
-  margin-bottom: 1.5rem;
-  font-size: clamp(2.6rem, 6vw, 5.5rem);
+  margin: 0;
+  font-size: clamp(1.8rem, 3.5vw, 3rem);
   letter-spacing: -0.045em;
 }
 
 .hero-intro {
   max-width: 36rem;
-  margin-bottom: 2rem;
+  margin-bottom: 0.75rem;
   color: var(--hero-ink);
   font-size: clamp(1.05rem, 1.8vw, 1.25rem);
 }
@@ -400,6 +393,32 @@ h3 {
 
 .text-link:hover {
   opacity: 0.8;
+}
+
+.stats-back-to-top {
+  margin-top: 1.25rem;
+  border-bottom-color: var(--accent);
+  color: var(--accent);
+}
+
+.site-footer {
+  padding: 1.5rem max(5vw, 1.5rem);
+  background: linear-gradient(105deg, var(--hero-end), var(--sidebar-bg));
+  color: var(--hero-ink);
+  transition: margin-left 0.3s;
+}
+
+.footer-brand {
+  color: var(--accent-gold);
+  font-family: 'Pirata One', fantasy;
+  font-size: 1.35rem;
+  text-decoration: none;
+}
+
+.site-footer p {
+  margin: 0.25rem 0 0;
+  color: var(--hero-ink);
+  font-size: 0.9rem;
 }
 
 /* Two-column section layout; it stacks at the tablet breakpoint below. */
@@ -430,8 +449,50 @@ h3 {
   font-size: clamp(1.25rem, 2vw, 1.65rem);
 }
 
-.last-visit {
-  min-height: 1.7em;
+.statistics-table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 0.35rem;
+  background: var(--control-bg);
+}
+
+.statistics-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--control-ink);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.statistics-table caption {
+  padding: 0.85rem 1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  text-align: left;
+}
+
+.statistics-table th,
+.statistics-table td {
+  padding: 0.7rem 1rem;
+  border-top: 1px solid var(--border);
+  text-align: right;
+}
+
+.statistics-table thead th {
+  background: var(--sidebar-bg);
+  color: var(--hero-ink);
+}
+
+.statistics-table th:first-child {
+  text-align: left;
+}
+
+.statistics-table tbody th {
+  font-weight: 600;
+}
+
+.statistics-table tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--accent-blue) 6%, var(--control-bg));
 }
 
 /* Wrap the theme selector and reset button beneath their full-width label. */
@@ -448,21 +509,6 @@ h3 {
   color: var(--ink);
   font-size: 1rem;
   font-weight: 700;
-}
-
-.preferences select,
-.reset-button {
-  min-height: 2.75rem;
-  padding: 0.55rem 0.85rem;
-  border: 1px solid var(--border);
-  border-radius: 0.25rem;
-  background: var(--control-bg);
-  color: var(--control-ink);
-  font: inherit;
-}
-
-.reset-button {
-  cursor: pointer;
 }
 
 .preferences select:focus-visible,
