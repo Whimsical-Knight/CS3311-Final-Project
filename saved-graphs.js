@@ -5,6 +5,7 @@ const graphsList = document.getElementById("saved-graphs-list");
 const emptyState = document.getElementById("saved-graphs-empty");
 const statusMessage = document.getElementById("saved-graphs-status");
 
+// Read and validate the locally stored list before using its graph records.
 function readGraphs() {
   const graphs = JSON.parse(localStorage.getItem(SAVED_GRAPHS_STORAGE_KEY) || "[]");
   if (!Array.isArray(graphs)) {
@@ -20,6 +21,7 @@ function readGraphs() {
   return graphs;
 }
 
+// Build one safe, accessible card with graph details and its available actions.
 function makeGraphCard(graph) {
   const card = document.createElement("article");
   card.className = "saved-graph-card";
@@ -69,6 +71,7 @@ function makeGraphCard(graph) {
   return card;
 }
 
+// Render every saved graph, or show a useful message if storage is invalid.
 function renderGraphs() {
   try {
     const graphs = readGraphs();
@@ -85,6 +88,7 @@ function renderGraphs() {
   }
 }
 
+// Handle open/delete actions from any graph card using one delegated listener.
 graphsList.addEventListener("click", event => {
   const button = event.target.closest("button[data-action]");
   if (!button) {
@@ -124,4 +128,5 @@ graphsList.addEventListener("click", event => {
   }
 });
 
+// Populate the saved-graphs page when its script loads.
 renderGraphs();

@@ -23,6 +23,7 @@ function toggleNav() {
   icon.textContent = isOpen ? "×" : "☰";
 }
 
+// Create one editable X/Y observation and keep its remove control accessible.
 function addDataSheetRow(xValue = "", yValue = "") {
   const body = document.getElementById("data-sheet-body");
   const row = document.createElement("tr");
@@ -69,6 +70,7 @@ function addDataSheetRow(xValue = "", yValue = "") {
   syncDataSheetInputs();
 }
 
+// Renumber visible rows and refresh cell/button names after grid changes.
 function updateDataSheetRowLabels() {
   document.querySelectorAll("#data-sheet-body tr").forEach((row, index) => {
     const rowNumber = index + 1;
@@ -82,6 +84,7 @@ function updateDataSheetRowLabels() {
   });
 }
 
+// Serialize the grid columns into the hidden comma-separated fields used by graph logic.
 function syncDataSheetInputs() {
   const rows = [...document.querySelectorAll("#data-sheet-body tr")];
   document.getElementById("xData").value = rows
@@ -92,6 +95,7 @@ function syncDataSheetInputs() {
     .join(",");
 }
 
+// Replace every grid row, such as after a spreadsheet import or saved-graph load.
 function setDataSheetValues(xValues, yValues) {
   const body = document.getElementById("data-sheet-body");
   body.replaceChildren();
@@ -104,6 +108,7 @@ function setDataSheetValues(xValues, yValues) {
   }
 }
 
+// Turn the page's default X/Y values into the first visible set of grid rows.
 function initializeDataSheet() {
   const xValues = document.getElementById("xData").value.split(",");
   const yValues = document.getElementById("yData").value.split(",");
@@ -119,7 +124,7 @@ function generateGraph() {
   const xValues = xInput.split(",").map(value => value.trim());
   const yValues = yInput.split(",").map(value => value.trim());
   const inputs = [...document.querySelectorAll(".data-sheet-cell")];
-  // in case of an erorr, show a message
+  // Show a message and mark editable cells when the input data cannot be graphed.
   const showError = message => {
     error.textContent = message;
     // Mark both fields so the error is announced and visually associated with the inputs.
@@ -307,6 +312,7 @@ function createHistogram(values) {
   return { labels, counts };
 }
 
+// Update selected-button state and redraw with the newly selected visualization.
 function selectChartType(type) {
   if (!CHART_TYPES.includes(type)) {
     throw new TypeError(`Unsupported chart type: ${type}`);
@@ -376,6 +382,7 @@ function updateStatistics(xValues, yValues) {
 }
 
 // Build column selectors, disambiguating repeated or blank spreadsheet headers.
+// Create readable spreadsheet column choices, including for blank/duplicate headers.
 function populateColumnOptions(select, headers) {
   // Rebuild the selector so a new upload never leaves options from the prior file.
   select.replaceChildren();
@@ -466,6 +473,7 @@ async function loadDataFile(file) {
 }
 
 // Transfer the selected spreadsheet columns into the graph inputs and redraw the chart.
+// Copy the selected imported columns into the grid and graph the resulting pairs.
 function graphSelectedColumns() {
   const fileInput = document.getElementById("data-file");
   const status = document.getElementById("upload-status");
@@ -494,11 +502,13 @@ function graphSelectedColumns() {
   }
 }
 
+// Parse the browser's saved-graph list; callers handle malformed or unavailable storage.
 function readSavedGraphs() {
   const saved = localStorage.getItem(SAVED_GRAPHS_KEY);
   return saved ? JSON.parse(saved) : [];
 }
 
+// Save the current source coordinates and display settings as a named local graph.
 function saveCurrentGraph() {
   const status = document.getElementById("save-graph-status");
   const nameInput = document.getElementById("save-graph-name");
@@ -535,6 +545,7 @@ function saveCurrentGraph() {
   }
 }
 
+// Restore a graph handed off by the Saved Graphs page, then consume the handoff record.
 function loadPendingGraph() {
   try {
     const pendingGraph = localStorage.getItem(PENDING_GRAPH_KEY);
@@ -566,7 +577,7 @@ function loadPendingGraph() {
   }
 }
 
-// Initialize graph controls only on the graph page; the navigation works on every page.
+// Wire graph-page controls and restore initial data; navigation is shared across pages.
 const dataFileInput = document.getElementById("data-file");
 if (dataFileInput) {
   dataFileInput.addEventListener("change", event => loadDataFile(event.target.files[0]));

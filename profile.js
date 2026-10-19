@@ -5,6 +5,7 @@ const profileForm = document.getElementById("profile-form");
 const displayNameInput = document.getElementById("display-name");
 const profileStatus = document.getElementById("profile-status");
 
+// Restore the display name and show the number of graphs saved in this browser.
 function loadProfile() {
   try {
     displayNameInput.value = localStorage.getItem(PROFILE_NAME_KEY) || "";
@@ -19,6 +20,7 @@ function loadProfile() {
   }
 }
 
+// Save the trimmed name, or remove it when the form is submitted empty.
 profileForm.addEventListener("submit", event => {
   event.preventDefault();
   const displayName = displayNameInput.value.trim();
@@ -37,6 +39,7 @@ profileForm.addEventListener("submit", event => {
   }
 });
 
+// Clear both the visible field and the locally stored profile name.
 document.getElementById("clear-profile").addEventListener("click", () => {
   displayNameInput.value = "";
   try {
@@ -48,4 +51,5 @@ document.getElementById("clear-profile").addEventListener("click", () => {
   }
 });
 
+// Populate the profile page when its script loads.
 loadProfile();

@@ -188,6 +188,7 @@
       min-width: 0;
     }
 
+    /* Graph-type selector and optional histogram-axis choice. */
     .chart-type-controls legend {
       margin-bottom: 0.4rem;
       color: var(--ink);
@@ -251,6 +252,7 @@
       font: inherit;
     }
 
+    /* Spreadsheet-like X/Y editor: scrollable table, cells, row labels, and removal controls. */
     .data-sheet {
       max-width: 36rem;
       margin: 1rem auto;
@@ -399,6 +401,7 @@
       border: 0;
     }
 
+    /* Shared button appearance for graph controls and actions inside the data-input area. */
     .data-input button {
       padding: 8px 15px;
       border: 0;
@@ -414,6 +417,7 @@
       background: var(--hero-start);
     }
 
+    /* Name field and status message for saving the graph currently on the canvas. */
     .save-graph-controls {
       display: grid;
       gap: 0.5rem;
@@ -445,7 +449,7 @@
       font-size: 0.9rem;
     }
 
-    /* DISPLAY CASE FOR GRAPH ERROR */
+    /* Validation feedback and responsive area containing the Chart.js canvas. */
     .graph-error {
       min-height: 1.5em;
       margin: 0.5rem 0 0;
@@ -473,6 +477,7 @@
       transition: margin-left 0.3s;
     }
 
+/* Document-wide typography, colors, and base link appearance. */
 body {
   margin: 0;
   background: var(--paper);
@@ -493,6 +498,7 @@ a:focus-visible {
   outline-offset: 4px;
 }
 
+/* Accessible skip link, visible only when keyboard users focus it. */
 .skip-link {
   position: absolute;
   top: -5rem;
@@ -508,6 +514,7 @@ a:focus-visible {
 }
 
 /*FLUID PADDING AND HEADING TEXT TO KEEP HERO BALANCED AT DIF WIDTHS*/
+/* Main landing hero holds the brand and graphing workspace. */
 .hero {
   position: relative;
   display: grid;
@@ -522,6 +529,7 @@ a:focus-visible {
   color: var(--hero-ink);
 }
 
+/* Brand mark, heading, introduction, and call-to-action within the hero. */
 .hero-copy {
   position: relative;
   z-index: 1;
@@ -603,13 +611,14 @@ h3 {
   opacity: 0.8;
 }
 
+/* Link style used below the statistics table to return to the hero. */
 .stats-back-to-top {
   margin-top: 1.25rem;
   border-bottom-color: var(--accent);
   color: var(--accent);
 }
 
-/*FOOTER DESIGN*/
+/* Shared footer appearance and spacing. */
 .site-footer {
   padding: 1.5rem max(5vw, 1.5rem);
   background: linear-gradient(105deg, var(--hero-end), var(--sidebar-bg));
@@ -630,7 +639,7 @@ h3 {
   font-size: 0.9rem;
 }
 
-/* TWO-COLUMN SECTION LAYOUT. STACKS AT TABLET BREAKPOINT BELOW */
+/* Content and statistics section layout; responsive rules stack it on narrow screens. */
 .content-section {
   display: grid;
   grid-template-columns: minmax(12rem, 0.8fr) minmax(0, 1.2fr);
@@ -658,6 +667,7 @@ h3 {
   font-size: clamp(1.25rem, 2vw, 1.65rem);
 }
 
+/* Scroll wrapper and table styling for the calculated X/Y statistics. */
 .statistics-table-wrap {
   overflow-x: auto;
   border: 1px solid var(--border);
@@ -704,6 +714,7 @@ h3 {
   background: color-mix(in srgb, var(--accent-blue) 6%, var(--control-bg));
 }
 
+/* Shared introduction banner for Profile and Saved Graphs pages. */
 .subpage-hero {
   padding: clamp(2rem, 5vw, 4rem) max(8vw, calc((100vw - 68rem) / 2));
   background: linear-gradient(105deg, var(--hero-end), var(--sidebar-bg));
@@ -740,6 +751,7 @@ h3 {
   margin-bottom: 0;
 }
 
+/* Shared card layout and controls used on the subpages. */
 .page-content {
   display: grid;
   gap: 1.25rem;
@@ -766,6 +778,7 @@ h3 {
   font-size: clamp(1.4rem, 3vw, 2rem);
 }
 
+/* Profile name form, graph summary, saved graph cards, and status messages. */
 .profile-form {
   display: grid;
   gap: 0.6rem;
@@ -880,7 +893,7 @@ h3 {
   display: none;
 }
 
-/* Stack section content and tighten spacing on smaller screens. */
+/* Breakpoints stack layouts and reduce horizontal padding for smaller devices. */
 @media (max-width: 850px) {
   .hero {
     min-height: auto;
