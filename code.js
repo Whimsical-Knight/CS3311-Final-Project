@@ -136,6 +136,7 @@ function calculateStatistics(values) {
   return {
     mean,
     median: quantile(sortedValues, 0.5),
+    variance,
     standardDeviation: Math.sqrt(variance),
     minimum: sortedValues[0],
     q1: quantile(sortedValues, 0.25),
