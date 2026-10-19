@@ -9,11 +9,10 @@
   <link rel="icon" type="image/png" href="image/favicon.png">
   <link rel="stylesheet" href="style.css">
   
-  <!-- Chart.js -->
+  <!-- Chart.js (this is for the graphing functionality)-->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js" defer></script>
   <script src="code.js" defer></script>
-
 </head>
 
 <body>
@@ -136,18 +135,17 @@
   </main>
 
   <footer class="site-footer">
-    <p>Whimsy be with you!</p>
+    <p>May the whimsy be with you!</p>
   </footer>
 
   <!-- LEFT MENU BUTTON -->
-  <button id="leftMenuButton" class="menu-button left-menu-button" type="button"
-    aria-label="Toggle navigation menu" aria-controls="leftSidebar" aria-expanded="false"
-    onclick="toggleLeftNav()">
-    <span id="leftMenuIcon">☰</span>
+  <button id="menuButton" class="menu-button" type="button"
+    aria-label="Toggle navigation menu" aria-controls="sidebar" aria-expanded="false"
+    onclick="toggleNav()">
+    <span id="menuIcon">☰</span>
   </button>
 
-  <!-- LEFT SIDEBAR -->
-  <nav id="leftSidebar" class="sidebar left-sidebar" aria-label="Main navigation">
+  <nav id="sidebar" class="sidebar" aria-label="Main navigation">
 
     <a href="#">Home</a>
     <a href="#">About</a>

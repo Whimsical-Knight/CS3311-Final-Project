@@ -1,9 +1,9 @@
 let graph;
 
-function toggleLeftNav() {
-  const sidebar = document.getElementById("leftSidebar");
-  const button = document.getElementById("leftMenuButton");
-  const icon = document.getElementById("leftMenuIcon");
+function toggleNav() {
+  const sidebar = document.getElementById("sidebar");
+  const button = document.getElementById("menuButton");
+  const icon = document.getElementById("menuIcon");
   const main = document.getElementById("main");
   const footer = document.querySelector(".site-footer");
   const isOpen = sidebar.classList.toggle("is-open");
@@ -12,18 +12,6 @@ function toggleLeftNav() {
   main.style.marginLeft = isOpen ? "250px" : "0";
   footer.style.marginLeft = isOpen ? "250px" : "0";
   icon.textContent = isOpen ? "×" : "☰";
-}
-
-function toggleRightNav() {
-  const sidebar = document.getElementById("rightSidebar");
-  const button = document.getElementById("rightMenuButton");
-  const profileIcon = document.getElementById("rightMenuIcon");
-  const closeIcon = document.getElementById("rightCloseIcon");
-  const isOpen = sidebar.classList.toggle("is-open");
-
-  button.setAttribute("aria-expanded", String(isOpen));
-  profileIcon.style.display = isOpen ? "none" : "block";
-  closeIcon.style.display = isOpen ? "block" : "none";
 }
 
 function generateGraph() {

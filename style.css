@@ -18,26 +18,18 @@
   --serif: Georgia, "Times New Roman", serif;
 }
  
-    /* Top nav */
-    .top-nav {
-      margin-top: 50px;
-      display: flex;
-      gap: 20px;
-    }
-
-    /* =========================
-      SIDEBAR
-      ========================= */
-
+    /* Single left navigation sidebar */
     .sidebar {
       height: 100vh;
       height: 100dvh;
       width: 250px;
       position: fixed;
+      left: 0;
       top: 0;
       box-sizing: border-box;
       background-color: var(--sidebar-bg);
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
       padding-top: 60px;
       visibility: hidden;
       transform: translateX(-100%);
@@ -51,24 +43,18 @@
       transition: transform 0.3s;
     }
 
-    /* LEFT SIDEBAR */
-    .left-sidebar {
-      left: 0;
-    }
-
     /* Smooth anchor scrolling and space around scroll targets. */
     html {
     scroll-behavior: smooth;
     scroll-padding-top: 5.5rem;
     }
 
-    /* =========================
-   MENU BUTTONS
-   ========================= */
+    /* Sidebar toggle */
 
     .menu-button {
       position: fixed;
       top: 11px;
+      left: 0;
 
       width: 50px;
       height: 50px;
@@ -86,27 +72,13 @@
       z-index: 1001;
     }
 
-    /* LEFT MENU BUTTON */
-
-    .left-menu-button {
-      left: 0;
-    }
-
-    /* RIGHT MENU BUTTON */
-
-    .right-menu-button {
-      right: 0;
-    }
-
     /* Hover */
 
     .menu-button:hover {
       background-color: color-mix(in srgb, var(--accent-gold) 30%, transparent);
     }
 
-    /* =========================
-      SIDEBAR LINKS
-      ========================= */
+    /* SIDEBAR LINKS */
 
     .sidebar a {
       display: block;
@@ -119,10 +91,6 @@
 
     .sidebar a:hover {
       background-color: var(--accent);
-    }
-
-    .sidebar {
-      overflow-x: hidden;
     }
 
     /* Graph area */
