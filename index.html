@@ -56,34 +56,69 @@
 
           <div class="data-input">
 
-            <label for="xData">X Values:</label>
+            <fieldset class="chart-type-controls">
+              <legend>Graph type</legend>
+              <div class="chart-type-buttons" role="group" aria-label="Choose graph type">
+                <button type="button" class="chart-type-button" data-chart-type="scatter"
+                  aria-pressed="false">Scatter</button>
+                <button type="button" class="chart-type-button is-selected" data-chart-type="line"
+                  aria-pressed="true">Line</button>
+                <button type="button" class="chart-type-button" data-chart-type="bar"
+                  aria-pressed="false">Bar</button>
+                <button type="button" class="chart-type-button" data-chart-type="histogram"
+                  aria-pressed="false">Histogram</button>
+              </div>
+              <div class="histogram-axis-control" id="histogram-axis-control" hidden>
+                <label for="histogram-axis">Histogram values</label>
+                <select id="histogram-axis">
+                  <option value="x">X values</option>
+                  <option value="y">Y values</option>
+                </select>
+              </div>
+            </fieldset>
 
             <input
-              type="text"
+              type="hidden"
               id="xData"
-              inputmode="decimal"
-              aria-describedby="graph-error"
               value="1,2,3,4,5"
             >
 
-            <br>
-
-            <label for="yData">Y Values:</label>
-
             <input
-              type="text"
+              type="hidden"
               id="yData"
-              inputmode="decimal"
-              aria-describedby="graph-error"
               value="2,4,6,8,10"
             >
 
-            <br>
+            <div class="data-sheet">
+              <div class="data-sheet-heading">
+                <h4>Data values</h4>
+                <button type="button" id="add-data-row" class="secondary-button">Add row</button>
+              </div>
+              <div class="data-sheet-scroll" role="region" aria-label="Editable X and Y data table" tabindex="0">
+                <table class="data-sheet-table">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="data-sheet-row-number">Row</th>
+                      <th scope="col">X</th>
+                      <th scope="col">Y</th>
+                      <th scope="col" class="data-sheet-actions"><span class="visually-hidden">Row actions</span></th>
+                    </tr>
+                  </thead>
+                  <tbody id="data-sheet-body"></tbody>
+                </table>
+              </div>
+              <p class="data-sheet-help">Enter one X/Y pair per row. Remove a row with its × button.</p>
+            </div>
 
-            <button type="button" onclick="generateGraph()">
-              Generate Graph
-            </button>
             <p class="graph-error" id="graph-error" role="alert"></p>
+            <div class="save-graph-controls">
+              <label for="save-graph-name">Save this graph</label>
+              <div class="save-graph-row">
+                <input type="text" id="save-graph-name" maxlength="60" placeholder="Graph name">
+                <button type="button" id="save-graph-button">Save graph</button>
+              </div>
+              <p class="save-graph-status" id="save-graph-status" role="status" aria-live="polite"></p>
+            </div>
 
           </div>
 
@@ -147,11 +182,10 @@
 
   <nav id="sidebar" class="sidebar" aria-label="Main navigation">
 
-    <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Saved Graphs</a>
-    <a href="#">My Data</a>
-    <a href="#">Profile</a>
+    <a href="index.html">Home</a>
+    <a href="index.html#stats">Basic statistics</a>
+    <a href="saved-graphs.html">Saved graphs</a>
+    <a href="profile.html">Profile</a>
 
   </nav>
 

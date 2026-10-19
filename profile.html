@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Manage your local Data Unicorn profile.">
+  <title>Profile | Data Unicorn</title>
+  <link rel="icon" type="image/png" href="image/favicon.png">
+  <link rel="stylesheet" href="style.css">
+  <script src="code.js" defer></script>
+  <script src="profile.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <main id="main">
+    <section class="subpage-hero" aria-labelledby="profile-title">
+      <a class="subpage-brand" href="index.html">
+        <img src="image/favicon.png" alt="">
+        <span>Data Unicorn</span>
+      </a>
+      <p class="eyebrow">Your workspace</p>
+      <h1 id="profile-title">Profile</h1>
+      <p>Make this data workspace feel like yours.</p>
+    </section>
+
+    <section class="page-content" aria-label="Profile settings">
+      <div class="page-card">
+        <h2>Your local profile</h2>
+        <p>Choose a display name for this browser. No account or personal information is required.</p>
+        <form id="profile-form" class="profile-form">
+          <label for="display-name">Display name</label>
+          <input id="display-name" name="displayName" type="text" maxlength="40"
+            autocomplete="nickname" placeholder="Data explorer">
+          <div class="page-actions">
+            <button class="primary-button" type="submit">Save profile</button>
+            <button class="secondary-button" id="clear-profile" type="button">Clear name</button>
+          </div>
+        </form>
+        <p class="page-status" id="profile-status" role="status" aria-live="polite"></p>
+      </div>
+
+      <div class="page-card profile-summary">
+        <h2>Your workspace</h2>
+        <p><strong id="saved-graph-count">—</strong> saved graphs in this browser</p>
+        <a class="page-link" href="saved-graphs.html">View saved graphs <span aria-hidden="true">→</span></a>
+      </div>
+
+      <p class="storage-note">Your profile name and saved graphs are stored only in this browser. They are not uploaded to a server.</p>
+      <a class="text-link page-back-link" href="index.html">Back to graphing <span aria-hidden="true">→</span></a>
+    </section>
+  </main>
+
+  <footer class="site-footer"><p>May the whimsy be with you!</p></footer>
+
+  <button id="menuButton" class="menu-button" type="button"
+    aria-label="Toggle navigation menu" aria-controls="sidebar" aria-expanded="false"
+    onclick="toggleNav()">
+    <span id="menuIcon">☰</span>
+  </button>
+  <nav id="sidebar" class="sidebar" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="index.html#stats">Basic statistics</a>
+    <a href="saved-graphs.html">Saved graphs</a>
+    <a href="profile.html" aria-current="page">Profile</a>
+  </nav>
+</body>
+</html>
