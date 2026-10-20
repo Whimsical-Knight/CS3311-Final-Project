@@ -327,34 +327,35 @@ function selectChartType(type) {
   generateGraph();
 }
 
-// Find an interpolated percentile from values that are already sorted.
-// The position formula places quartiles consistently, including for even-sized sets.
-function quantile(sortedValues, probability) {
-  const position = (sortedValues.length - 1) * probability;
-  const lowerIndex = Math.floor(position);
-  const upperIndex = Math.ceil(position);
-  const fraction = position - lowerIndex;
-
-  return sortedValues[lowerIndex] +
-    (sortedValues[upperIndex] - sortedValues[lowerIndex]) * fraction;
+// Find the median of an already-sorted set by selecting its middle value(s).
+function median(sortedValues) {
+  const middleIndex = Math.floor(sortedValues.length / 2);
+  return sortedValues.length % 2 === 0
+    ? (sortedValues[middleIndex - 1] + sortedValues[middleIndex]) / 2
+    : sortedValues[middleIndex];
 }
 
-// Calculate descriptive statistics using the population variance formula.
+// Calculate statistics; spread uses sample formulas and quartiles use medians of halves.
 function calculateStatistics(values) {
   // Sort a copy so the original values remain available in their input order.
   const sortedValues = [...values].sort((left, right) => left - right);
   const mean = values.reduce((sum, value) => sum + value, 0) / values.length;
-  // Divide by N (rather than N - 1) because this reports population variance.
-  const variance = values.reduce((sum, value) => sum + (value - mean) ** 2, 0) / values.length;
+  // Sample variance uses N - 1 degrees of freedom; it is undefined for one value.
+  const variance = values.length > 1
+    ? values.reduce((sum, value) => sum + (value - mean) ** 2, 0) / (values.length - 1)
+    : null;
+  const middleIndex = Math.floor(sortedValues.length / 2);
+  const lowerHalf = sortedValues.slice(0, middleIndex);
+  const upperHalf = sortedValues.slice(Math.ceil(sortedValues.length / 2));
 
   return {
     mean,
-    median: quantile(sortedValues, 0.5),
+    median: median(sortedValues),
     variance,
-    standardDeviation: Math.sqrt(variance),
+    standardDeviation: variance === null ? null : Math.sqrt(variance),
     minimum: sortedValues[0],
-    q1: quantile(sortedValues, 0.25),
-    q3: quantile(sortedValues, 0.75),
+    q1: lowerHalf.length ? median(lowerHalf) : sortedValues[0],
+    q3: upperHalf.length ? median(upperHalf) : sortedValues[sortedValues.length - 1],
     maximum: sortedValues[sortedValues.length - 1]
   };
 }
@@ -373,7 +374,7 @@ function updateStatistics(xValues, yValues) {
       // Cell IDs use kebab-case (standardDeviation -> standard-deviation),
       // followed by the axis suffix, e.g. stat-standard-deviation-x.
       document.getElementById(`stat-${name.replace(/[A-Z]/g, letter => `-${letter.toLowerCase()}`)}-${axis}`)
-        .textContent = formatter.format(value);
+        .textContent = value === null ? "—" : formatter.format(value);
     });
   });
 
@@ -381,7 +382,6 @@ function updateStatistics(xValues, yValues) {
     `Statistics calculated from ${xValues.length} plotted data points.`;
 }
 
-// Build column selectors, disambiguating repeated or blank spreadsheet headers.
 // Create readable spreadsheet column choices, including for blank/duplicate headers.
 function populateColumnOptions(select, headers) {
   // Rebuild the selector so a new upload never leaves options from the prior file.
@@ -472,7 +472,6 @@ async function loadDataFile(file) {
   }
 }
 
-// Transfer the selected spreadsheet columns into the graph inputs and redraw the chart.
 // Copy the selected imported columns into the grid and graph the resulting pairs.
 function graphSelectedColumns() {
   const fileInput = document.getElementById("data-file");
